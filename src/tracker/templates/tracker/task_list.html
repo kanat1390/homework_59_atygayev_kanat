@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница со всеми задачами</title>
+</head>
+
+<body>
+    <form action="" method="get">
+        {{search_form}}
+        <button type="submit">Найти</button>
+    </form>
+    {% for task in task_list %}
+    <p><a href="{% url 'task-detail' task.pk %}">{{ task.summary }}</a></p>
+    {% endfor %}
+    {{test}}
+</body>
+
+</html>

@@ -9,7 +9,15 @@
 </head>
 
 <body>
+    <div style="margin-bottom:10px;">
+        <a href="{% url 'task-create' project.pk %}">Добавить задачу</a>
+    </div>
     {{project.name}}
+    {% for task in project.tasks.all %}
+    <p><a href="{% url 'task-detail' task.pk %}">{{ task.summary }}</a></p>
+    {% empty %}
+    <p>У данного проекта нет еще задач</p>
+    {% endfor %}
 </body>
 
 </html>
