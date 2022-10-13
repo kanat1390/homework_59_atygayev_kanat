@@ -8,6 +8,16 @@
 <h2>Список задач</h2>
 {% endblock page_title %}
 
+{% block search %}
+<form action="">
+    <div class="d-flex justify-content-center gap-3">
+        {{ search_form.search}}
+        <button class="btn btn-primary" type="submit">Найти</button>
+    </div>
+
+</form>
+{% endblock search %}
+
 {% block content %}
 {% include 'tracker/partial/task_item_list.html'%}
 <div class="mt-3">

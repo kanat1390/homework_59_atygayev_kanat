@@ -29,10 +29,11 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="{% url 'project-list' %}">Проекты</a>
+                                <a class="nav-link" style="color:black;" aria-current="page"
+                                    href="{% url 'project-list' %}">Проекты</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'task-list' %}">Задачи</a>
+                                <a class="nav-link" style="color:black;" href="{% url 'task-list' %}">Задачи</a>
                             </li>
                         </ul>
                         {% block create_btn %}
@@ -43,6 +44,11 @@
             </nav>
         </div>
         <div class="content mt-3">
+            <div class="search">
+                {% block search %}
+
+                {% endblock search %}
+            </div>
             <div class="mt-5 text-center">
                 {% block page_title %}
 
