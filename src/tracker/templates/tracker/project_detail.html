@@ -25,5 +25,17 @@
     </div>
 </div>
 <h4 class="text-center">Задачи проекта</h4>
-{% include 'tracker/partial/task_item_list.html' with task_list=project.tasks.all %}
+{% include 'tracker/partial/task_item_list.html' with task_list=page_obj.object_list %}
+<div class="mt-3">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
 {% endblock content %}

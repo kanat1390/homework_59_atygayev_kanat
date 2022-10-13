@@ -1,6 +1,11 @@
 <ul class="list-group bg-light">
     {% for project in project_list %}
-    <li class="list-group-item"><a href="{% url 'project-detail' project.pk %}" class="nav-link">{{ project.name }}</a>
+    <li class="list-group-item d-flex justify-content-between">
+        <a href="{% url 'project-detail' project.pk %}" class="nav-link">{{ project.name }}</a>
+        <div class="d-flex gap-3">
+            <a href="{% url 'project-update' project.pk %}" class="btn btn-primary">Редактировать</a>
+            <a href="{% url 'project-update' project.pk %}" class="btn btn-danger">Удалить</a>
+        </div>
     </li>
     {% endfor %}
 </ul>

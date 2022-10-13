@@ -4,6 +4,8 @@ from tracker.models import Project, Task, status
 from django.urls import reverse
 from tracker.forms import SearchForm
 from tracker.forms import ProjectForm
+from django.core.paginator import Paginator
+from tracker.forms import TaskForm
 
 class ProjectListView(ListView):
     model = Project
@@ -14,9 +16,19 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = 'tracker/project_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tasks = context['project'].tasks.all()
+        paginator = Paginator(tasks, per_page=6)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
+        return context
+
 class TaskListView(ListView):
     model = Task
     template_name = 'tracker/task_list.html'
+    paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,15 +68,20 @@ class ProjectCreateView(SuccessDetailUrlMixin, CreateView):
 
 class TaskCreateView(SuccessDetailUrlMixin, CreateView):
     model = Task
-    fields = ['summary', 'description', 'status', 'types']
     template_name = 'tracker/forms/task_form.html'
     detail_url_name = 'task-detail'
+    form_class = TaskForm
 
     def form_valid(self, form):
         project = get_object_or_404(Project, pk=self.kwargs.get('pk'))
         task = form.save(commit=False)
         task.project = project
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Создание задачи'
+        return context
 
 class ProjectUpdateView(SuccessDetailUrlMixin, UpdateView):
     model = Project
@@ -75,6 +92,17 @@ class ProjectUpdateView(SuccessDetailUrlMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Редактирование проекта'
+        return context
+
+class TaskUpdateView(SuccessDetailUrlMixin,UpdateView):
+    model = Task
+    template_name = 'tracker/forms/task_form.html'
+    detail_url_name = 'task-detail'
+    form_class = TaskForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Редактирование задачи'
         return context
 
 
