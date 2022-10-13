@@ -19,7 +19,7 @@ class TaskListView(ListView):
     
     def get_queryset(self):
         text = self.request.GET.get('search', '')
-        task_list = self.model.objects.all().order_by('-updated_at')
+        task_list = self.model.task_objects.all().order_by('-updated_at')
         if text:
             task_list = task_list.filter(summary__icontains=text).order_by('-updated_at')
         return task_list

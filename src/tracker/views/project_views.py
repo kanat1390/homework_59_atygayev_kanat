@@ -4,12 +4,15 @@ from django.urls import reverse
 from tracker.forms import ProjectForm
 from django.core.paginator import Paginator
 from .mixin import SuccessDetailUrlMixin
+from django.http import HttpResponseRedirect
 
 
 class ProjectListView(ListView):
     model = Project
     template_name = 'tracker/project_list.html'
     ordering = ['-started_date']
+    queryset = Project.project_objects.all()
+
 
 
 class ProjectDetailView(DetailView):
@@ -55,3 +58,9 @@ class ProjectDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('project-list')
+    
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.object.is_deleted = True
+        self.object.save()
+        return HttpResponseRedirect(success_url)
