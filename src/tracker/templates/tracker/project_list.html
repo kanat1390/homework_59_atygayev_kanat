@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница со всеми проектами</title>
-</head>
+{% block title %}
+Список проектов
+{% endblock title %}
 
-<body>
-    {% for project in project_list %}
-    <p><a href="{% url 'project-detail' project.pk %}">{{ project.name }}</a></p>
-    {% endfor %}
-</body>
+{% block page_title %}
+<h2>Список проектов</h2>
+{% endblock page_title %}
 
-</html>
+{% block create_btn %}
+<a href="{% url 'project-create' %}" class="btn btn-primary">Создать проект</a>
+{% endblock create_btn %}
+
+{% block content %}
+{% include 'tracker/partial/project_item_list.html'%}
+{% endblock content %}

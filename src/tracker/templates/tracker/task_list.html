@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница со всеми задачами</title>
-</head>
+{% block title %}
+Список задач
+{% endblock title %}
 
-<body>
-    <form action="" method="get">
-        {{search_form}}
-        <button type="submit">Найти</button>
-    </form>
-    {% for task in task_list %}
-    <p><a href="{% url 'task-detail' task.pk %}">{{ task.summary }}</a></p>
-    {% endfor %}
-    {{test}}
-</body>
+{% block page_title %}
+<h2>Список задач</h2>
+{% endblock page_title %}
 
-</html>
+{% block content %}
+{% include 'tracker/partial/task_item_list.html'%}
+{% endblock content %}

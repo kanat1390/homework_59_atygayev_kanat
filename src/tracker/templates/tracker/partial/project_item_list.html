@@ -1,0 +1,6 @@
+<ul class="list-group bg-light">
+    {% for project in project_list %}
+    <li class="list-group-item"><a href="{% url 'project-detail' project.pk %}" class="nav-link">{{ project.name }}</a>
+    </li>
+    {% endfor %}
+</ul>

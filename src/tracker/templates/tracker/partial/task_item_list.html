@@ -1,0 +1,6 @@
+<ul class="list-group bg-light mt-3">
+    {% for task in task_list %}
+    <li class="list-group-item"><a href="{% url 'task-detail' task.pk %}" class="nav-link">{{ task.summary }}</a>
+    </li>
+    {% endfor %}
+</ul>
